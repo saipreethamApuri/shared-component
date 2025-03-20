@@ -1,8 +1,13 @@
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   entry: './src/index.js',
   mode: 'development',
+  output: {
+    path: __dirname + '/dist',
+    publicPath: '/',
+  },
   devServer: {
     port: 3005,
     historyApiFallback: true,
@@ -23,6 +28,9 @@ module.exports = {
     ],
   },
   plugins: [
+    new HtmlWebpackPlugin({
+      template: './public/index.html',
+    }),
     new ModuleFederationPlugin({
       name: 'sharedComponents',
       filename: 'remoteEntry.js',
